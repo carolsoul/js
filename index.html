@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Mapa de Viagens e Destinos Turísticos</title>
+</head>
+<body>
+    <h1>Mapa de Viagens e Destinos Turísticos</h1>
+    <div id="lista-destinos"></div>
+
+    <script>
+        fetch('destinos.json')
+            .then(response => response.json())
+            .then(data => {
+                const lista = document.getElementById('lista-destinos');
+                data.destinos.forEach(destino => {
+                    const div = document.createElement('div');
+                    div.className = 'destino';
+                    div.innerHTML = `<img src="${destino.imagem}" alt="${destino.destino}">
+                                    <div>
+                                        <h2>${destino.destino}</h2>
+                                        <p><strong>Região:</strong> ${destino.regiao}</p>
+                                        <p><strong>Faixa de Preço:</strong> ${destino.faixaPreco}</p>
+                                        <p><strong>Detalhes:</strong> ${destino.detalhes}</p>
+                                    </div>`;
+                    lista.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar os dados:', error));
+    </script>
+</body>
+</html>
